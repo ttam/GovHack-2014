@@ -6,7 +6,7 @@ var Cornetto =
 		$scope.clickedButtonInWindow = function () {
 			var msg = 'clicked a window in the template!';
 			alert(msg);
-		};	
+		};
 	}])
 
 	.controller('ZombieCtrl', ['$scope', '$timeout', '$q', '$http', '$modal', function($scope, $timeout, $q, $http, $modal) {
@@ -14,6 +14,17 @@ var Cornetto =
 				positivePromises = [],
 				negative = ['cemeteries', 'hospitals'],
 				negativePromises = [];
+		var loadingMessages = [
+			'Assembling Team',
+			'Reticulating Splines',
+			'Loading threat data',
+			'Calculating escape route',
+			'Killing Phil',
+			'You\'ve got red on you',
+			'Cornetto?',
+			'Searching..',
+			'There\'s one behind you'
+		];
 
 		// Don't know what this does, but i was in the demoI was told to do it.
 		// See http://googlegeodevelopers.blogspot.ca/2013/05/a-fresh-new-look-for-maps-api-for-all.html
@@ -23,43 +34,17 @@ var Cornetto =
 		$scope.populateHeatmap = function (layer) { layer.setData(new google.maps.MVCArray(layer.markers)); };
 
 		$scope.showIntro = true;
-		$scope.progress = 10;
-		$scope.loadingMessage = "Killing Phil";
 
-		$timeout(function() {
-			$scope.progress = 25;
-			$scope.loadingMessage = 'Assembling Team';
-		}, 1000);
+		var loadingTimeout = $interval(function() {
+			$scope.loadingMessage = loadingMessages.shift();
+		}, 850);
 
-		$timeout(function() {
-			$scope.progress = 35;
-			$scope.loadingMessage = 'Reticulating Splines';
-		}, 2000);
-
-		$timeout(function() {
-			$scope.progress = 55;
-			$scope.loadingMessage = 'Planning escape route';
-		}, 3000);
-
-		$timeout(function() {
-			$scope.progress = 85;
-			$scope.loadingMessage = 'Something else';
-			$scope.saveMe();
-		}, 4000);
-
-		$timeout(function() {
-			$scope.progress = 100;
-			$scope.loadingMessage = 'Something else';
-		}, 5000);
-
-		$timeout(function() {
-			$('#intro').fadeOut(1000);
-		}, 5500);
-
-
-
-
-
+		var loader = $interval(function() {
+			if ($scope.progress == 100) {
+				loader = null;
+			}
+			$scope.progress += 1;
+		}, 200);
 
 
 
@@ -146,7 +131,7 @@ var Cornetto =
     window.alert("Marker: lat: " + marker.latitude + ", lon: " + marker.longitude + " clicked!!")
   };
 
-  
+
   angular.extend($scope, {
     example2: {
       doRebuildAll: false
@@ -251,8 +236,8 @@ var Cornetto =
         {id: 3, "latitude": 50.9175, "longitude": 6.943611}
       ],
       dynamicMarkers: [],
-      
-      
+
+
       clusterOptions: {title: 'Hi I am a Cluster!', gridSize: 100, ignoreHidden: true, minimumClusterSize: 2,
         imageExtension: 'png', imageSizes: [72]},
       clickedMarker: {
@@ -341,8 +326,8 @@ var Cornetto =
           message: 'passed in from the opener'
         }
       }
-      
-      
+
+
     },
     toggleColor: function (color) {
       return color == 'red' ? '#6060FB' : 'red';
@@ -395,7 +380,7 @@ var Cornetto =
       $scope.map.clusterOptions = angular.fromJson($scope.map.clusterOptionsText);
   });
 
-  
+
 
 
   $scope.searchLocationMarker = {
@@ -406,14 +391,14 @@ var Cornetto =
     options: { draggable: true },
     events: {
       dragend: function (marker, eventName, args) {
-        
+
       }
     }
   }
   $scope.onMarkerClicked = onMarkerClicked;
 
   $scope.clackMarker = function ($markerModel) {
-    
+
   };
 
   $timeout(function () {
