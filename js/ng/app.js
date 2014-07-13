@@ -56,6 +56,11 @@ var Cornetto =
 					$timeout(function() {
 						$('#directions-display').appendTo($('#directions-body'));
 					}, 800);
+
+$scope.closeDirectons = function() {
+						modal.close();
+					};
+
 				}
 			});
 		};
