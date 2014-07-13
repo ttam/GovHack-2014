@@ -33,7 +33,7 @@ var Cornetto =
 		$scope.showIntro = true;
 
 		$scope.loading = false;
-		$scope.progress = 0;
+		$scope.progress = 25;
 
 
 		$scope.heat = {};
@@ -104,7 +104,7 @@ var Cornetto =
 				templateUrl: 'modal.html',
 				controller: function($scope, $modalInstance) {
 					$scope.loading = true;
-					$scope.progress = 0;
+					$scope.progress = 25;
 					$scope.loadingMessage = '';
 					var loadingMessages = [
 						'Assembling Team',
@@ -242,32 +242,67 @@ var Cornetto =
 
 					switch(destination) {
 						case 'worship':
-							waypoints.push({
-            		location: new google.maps.LatLng(-37.8174153,144.9671391),
-            		stopover: true
-          		});
 
 							waypoints.push({
-            		location: new google.maps.LatLng(-37.8155168,144.9663022),
+            		location: new google.maps.LatLng(-37.8047715,144.9770817),
             		stopover: true
           		});
 
 							waypoints.push({
-            		location: new google.maps.LatLng(-37.8146523,144.9690702),
+            		location: new google.maps.LatLng(-37.8047715,144.9770817),
             		stopover: true
           		});
 
-          		waypoints.push({
-            		location: new google.maps.LatLng(-37.8090242,144.9663451),
+waypoints.push({
+            		location: new google.maps.LatLng(-37.8168077,144.968327),
             		stopover: true
           		});
 
-          		waypoints.push({
-            		location: new google.maps.LatLng(-37.8069728,144.9658516),
+// waypoints.push({
+//             		location: new google.maps.LatLng(-37.8066364,144.9687562),
+//             		stopover: true
+//           		});
+
+// waypoints.push({
+//             		location: new google.maps.LatLng(-37.8008085,144.9702828),
+//             		stopover: true
+//           		});
+
+
+
+// waypoints.push({
+//             		location: new google.maps.LatLng(-37.7617303,144.9738202),
+//             		stopover: true
+//           		});
+
+// waypoints.push({
+//             		location: new google.maps.LatLng(-37.7467201,144.9886796),
+//             		stopover: true
+//           		});
+
+// waypoints.push({
+//             		location: new google.maps.LatLng(-37.7431824,144.9893019),
+//             		stopover: true
+//           		});
+
+waypoints.push({
+            		location: new google.maps.LatLng(-37.7407475,144.9896238),
             		stopover: true
           		});
 
-							destinationCoords = new google.maps.LatLng(-37.8073458, 144.968);
+
+
+
+
+
+
+
+
+
+
+
+
+							destinationCoords = new google.maps.LatLng(-37.7390676,144.9898812);
 							break;
 
 						case 'drink':
