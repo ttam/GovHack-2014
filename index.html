@@ -13,19 +13,6 @@
 	</head>
 
 	<body ng-controller="ZombieCtrl">
-		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-			<div class="container">
-				<div class="navbar-header">
-          <a class="navbar-brand" href="#">Zombie Survival</a>
-        </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav pull-right">
-	          <li><a href="" ng-click="showOptions()">Options</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </div>
-
 		<google-map
 			center="map.center"
 			zoom="map.zoom"
@@ -50,25 +37,116 @@
 	        </marker>
 	 -->
 
-	        <markers models="negativeMarkers" coords="'self'" icon="'icon'" click="'onClicked'"
-	                    doCluster="true" clusterOptions="map.clusterOptions">
-	        </markers>
 
-	        <markers models="positiveMarkers" coords="'self'" icon="'icon'" click="'onClicked'"
-	                    doCluster="true" clusterOptions="map.clusterOptions">
-	        </markers>
+					<markers models="positiveMarkers" coords="'self'" icon="'icon'" click="'onClicked'"
+						doCluster="true" clusterOptions="map.clusterOptions" control="map.positiveControl">
+					</markers>
+
+					<markers models="negativeMarkers" coords="'self'" icon="'icon'" click="'onClicked'"
+						doCluster="true" clusterOptions="map.clusterOptions" control="map.negativeControl">
+					</markers>
 
 		</google-map>
 
-		<div id="intro" ng-show="showIntro">
-			<div id="intro-inner">
-				<h1>Shit, there's zombies</h1>
-				<progressbar class="progress-striped active" value="progress" type="danger">{{loadingMessage}}</progressbar>
+		<div id="legend" ng-show="legend">
+			<div class="line" id="hospital">
+				<div class="img" ></div>
+				<p>Hospitals</p>
+			</div>
+			<div class="line" id="cemetery">
+				<div class="img" ></div>
+				<p>Cemetery</p>
+			</div>
+			<div class="line" id="police">
+				<div class="img" ></div>
+				<p>Police Stations</p>
+			</div>	
+
+			<div class="line" id="prayer">
+				<div class="img" ></div>
+				<p>Worship</p>
+			</div>	
+
+			<div class="line" id="beer">
+				<div class="img" ></div>
+				<p>Pub</p>
+			</div>	
+
+			<div class="line" id="bench">
+				<div class="img" ></div>
+				<p>Bench</p>
+			</div>	
+		</div>
+
+		<a href="" class="btn btn-danger" style="width: 250px; position: fixed; bottom: 20px; right: 20px;" ng-click="toggleLegend()">
+			<span ng-show="legend">Hide</span>
+			<span ng-hide="legend">Show</span>
+			Legend
+		</a>
+
+		<a href="" class="btn btn-danger" style="width: 250px; position: fixed; bottom: 20px; right: 290px;" ng-click="showDirections()">
+			View Directions
+		</a>
+
+		<div id="directions-display" style="max-height: 500px; overflow: scroll;"></div>
+
+		<div id="splash">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-6 hidden-sm visible-md-block visible-lg-block bg"></div>
+					<div class="zombies"></div>
+					<div class="col-md-6">
+						<div class="intro col-sm-10 col-sm-offset-1">
+							<h1>zOMBiE SURviVAL</h1>
+
+							<p>The last thing you expected when you woke up this morning was to find the living dead roaming the streets, but the inevitable has happened.</p>
+ 							<p>Now we're here to guide you along the safest possible route to your target destination.</p>
+							<p>Choose your destination below:</p>
+							<!-- <div class="col-sm-4"> -->
+								<a href="#" class="btn btn-block btn-black btn-lg worship" ng-click="saveMe('worship')">Worship</a>
+							<!-- </div> -->
+							<!-- <div class="col-sm-4"> -->
+								<a href="#" class="btn btn-block btn-black btn-lg drink" ng-click="saveMe('drink')">Pub</a>
+							<!-- </div> -->
+							<!-- <div class="col-sm-4"> -->
+								<a href="#" class="btn btn-block btn-black btn-lg sit" ng-click="saveMe('sit')">Sit</a>
+							<!-- </div> -->
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 
+		<script type="text/ng-template" id="modal.html">
+			<div class="modal-header">
+				<h4 class="modal-title">Getting you to safety</h4>
+			</div>
 
+			<div class="modal-body">
+				<div style="position: relative">
+					<div id="loadingimg" ng-show="loading" style="background-image: url(/img/splat.png); background-size: contain; background-repeat: no-repeat; height: 80px; width: 150px; margin-top: -35px; margin-left: -20px; position: absolute;"></div>
+					<progressbar id="progBar" ng-show="loading" value="progress" type="danger">{{loadingMessage}}</progressbar>
+					<p ng-show="!loading">{{message}}</p>
+				</div>
+			</div>
 
+			<div class="modal-footer">
+				<button class="btn btn-default" ng-disabled="$parent.loading" ng-click="closeSplash()">Take me there</button>
+			</div>
+		</script>
+
+		<script type="text/ng-template" id="directions.html">
+			<div class="modal-header">
+				<h4 class="modal-title">Directions</h4>
+			</div>
+
+			<div class="modal-body" id="directions-body" style="height: 500px;">
+			</div>
+
+			<div class="modal-footer">
+				<button class="btn btn-default" ng-click="closeDirectons()">Close</button>
+			</div>
+		</script>
 
 
 
